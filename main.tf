@@ -21,7 +21,7 @@ data "aws_ami" "app_ami" {
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = "dev"
+  name = "vpc"
   cidr = "10.0.0.0/16"
 
   azs             = ["us-west-2a", "us-west-12b", "us-west-2c"]
@@ -51,7 +51,7 @@ module "alb" {
   source  = "terraform-aws-modules/alb/aws"
   version = "~> 8.0"
 
-  name = "blog-alb"
+  name = "alb"
 
   load_balancer_type = "application"
 
