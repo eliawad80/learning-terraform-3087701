@@ -17,7 +17,7 @@ data "aws_ami" "app_ami" {
 #data "aws_vpc" "default" {
 #default = true
 #}
-# we are creating new VPC using a module so i desactivated the default VPC above 
+# we are creating new VPC using a module so i deactivated the default VPC above 
 
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
@@ -57,6 +57,7 @@ module "blog_sg" {
   #vpc_id      = data.aws_vpc.default.id
   # the above line to use with the default VPC in line 17 and been replaced with theline below to be used with VPC module
   vpc_id      = module.vpc.public_subnets[0]
+
   ingress_rules = ["http-80-tcp","https-443-tcp"]
   ingress_cidr_blocks = ["0.0.0.0/0"]
 
@@ -66,34 +67,34 @@ module "blog_sg" {
 }
 
 
-resource "aws_security_group" "blog" {
-  name        = "blog"
-  description = "allow http and https in ,allow everything out"
-  vpc_id      = data.aws_vpc.default.id
-}
-resource "aws_security_group_rule" "blog_http_in" {
-  type        = "ingress"
-  from_port   = 80
-  to_port     = 80
-  protocol    = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.blog.id
-}
+#resource "aws_security_group" "blog" {
+#  name        = "blog"
+#  description = "allow http and https in ,allow everything out"
+#  vpc_id      = data.aws_vpc.default.id
+#}
+#resource "aws_security_group_rule" "blog_http_in" {
+#  type        = "ingress"
+#  from_port   = 80
+#  to_port     = 80
+# protocol    = "tcp"
+#  cidr_blocks = ["0.0.0.0/0"]
+ # security_group_id = aws_security_group.blog.id
+#}
 
-resource "aws_security_group_rule" "blog_https_in" {
-  type        = "ingress"
-  from_port   = 443
-  to_port     = 443
-  protocol    = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.blog.id
-}
+#resource "aws_security_group_rule" "blog_https_in" {
+# type        = "ingress"
+#  from_port   = 443
+#  to_port     = 443
+#  protocol    = "tcp"
+#  cidr_blocks = ["0.0.0.0/0"]
+#  security_group_id = aws_security_group.blog.id
+#}
 
-resource "aws_security_group_rule" "blog_everything_out" {
-  type        = "egress"
-  from_port   = 0
-  to_port     = 0
-  protocol    = "-1"
-  cidr_blocks = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.blog.id
-}
+#resource "aws_security_group_rule" "blog_everything_out" {
+#  type        = "egress"
+#  from_port   = 0
+#  to_port     = 0
+#  protocol    = "-1"
+#  cidr_blocks = ["0.0.0.0/0"]
+#  security_group_id = aws_security_group.blog.id
+#}
