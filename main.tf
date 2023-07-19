@@ -56,8 +56,8 @@ module "blog_sg" {
   name = "blog_new"
   
   #vpc_id      = data.aws_vpc.default.id
-  # the above line to use with the default VPC in line 17 and been replaced with theline below to be used with VPC module
-  vpc_id      = module.blog.vpc.vpc_id
+  # the above line to use with the default VPC in line 17 and been replaced with the line below to be used with VPC module
+  vpc_id      = module.blog_new.vpc.vpc_id
    #vpc_id      = module.vpc.public_subnets[0]
 
   ingress_rules = ["http-80-tcp","https-443-tcp"]
