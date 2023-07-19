@@ -58,7 +58,7 @@ module "blog_sg" {
   #vpc_id      = data.aws_vpc.default.id
   # the above line to use with the default VPC in line 17 and been replaced with the line below to be used with VPC module
 
-  vpc_id      = vpc_id = module.vpc.vpc_id
+  vpc_id      = module.vpc.vpc_id
 
   ingress_rules = ["http-80-tcp","https-443-tcp"]
   ingress_cidr_blocks = ["0.0.0.0/0"]
