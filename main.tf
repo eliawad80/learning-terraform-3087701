@@ -97,7 +97,7 @@ module "blog_alb" {
         #  target_id = "i-a1b2c3d4e5f6g7h8i"
         #  port = 8080
         #}
-      }
+      #}
     }
   ]
 
