@@ -19,7 +19,7 @@ data "aws_ami" "app_ami" {
 #}
 # we are creating new VPC using a module so i deactivated the default VPC above 
 
-module "vpc" {
+module "blog_vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   name = "dev"
@@ -41,8 +41,7 @@ module "vpc" {
 resource "aws_instance" "blog" {
   ami           = data.aws_ami.app_ami.id
   instance_type = var.instance_type
-  
-  vpc_id             = module.blog_vpc.vpc_id
+
   subnet_id     = module.blog_vpc.public_subnets[0]
   vpc_security_group_ids = [module.blog_sg.security_group_id]
   #vpc_security_group_ids = [aws_security_group.blog.id]
@@ -62,7 +61,7 @@ module "blog-alb" {
 
   vpc_id             = module.blog_vpc.vpc_id
   subnets            = module.blog_vpc.public_subnets
-  security_groups    = module_blog_sg.security_group_id
+  security_groups    = module.blog_sg.security_group_id
 
   #access_logs = {
   #  bucket = "my-alb-logs"
