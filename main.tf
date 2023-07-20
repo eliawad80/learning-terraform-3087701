@@ -41,7 +41,7 @@ module "vpc" {
 resource "aws_instance" "blog" {
   ami           = data.aws_ami.app_ami.id
   instance_type = var.instance_type
-
+  vpc_id             = module.blog_vpc.vpc_id
   subnet_id     = module.blog_vpc.public_subnets[0]
   vpc_security_group_ids = [module.blog_sg.security_group_id]
   #vpc_security_group_ids = [aws_security_group.blog.id]
@@ -111,7 +111,7 @@ module "blog-alb" {
 module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "5.1.0"
-  name = "blog_vpc"
+  name = "blog"
   
   #vpc_id      = data.aws_vpc.default.id
   # the above line to use with the default VPC in line 17 and been replaced with the line below to be used with VPC module
