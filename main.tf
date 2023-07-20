@@ -111,7 +111,7 @@ module "blog-alb" {
 module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "5.1.0"
-  name = "blog"
+  name = "blog_vpc"
   
   #vpc_id      = data.aws_vpc.default.id
   # the above line to use with the default VPC in line 17 and been replaced with the line below to be used with VPC module
